@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html {
+                width: 60%;
+                margin: auto;
+            }
+            header, footer {
+                padding: 20px 20px;
+                /* background: #f44336; */
+                background: #673ab7;
+                color: #fff;
+                font-size: 30px;
+                text-align: center;
+            }
+            .body {
+                min-height: 200px;
+                padding: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+           <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg" style="height: 20px;" />  -->
+           <img src="https://go.dev/blog/go-brand/Go-Logo/PNG/Go-Logo_Blue.png" style="height: 80px;display: block;margin: auto;" /> 
+           
+           Golang | Google Inc.
+        </header>
+        <section class="body">
+            Hey {{.Name}},<br/>
+            <p>This is Dummy E-Mail</p>
+            <p>You can follow this Page: <a href="{{.Link}}" target="_blank" style="font-style: oblique;font-weight: bold;">{{.LinkText}}</a></p>
+        </section>
+        <footer>
+            Reach us at support@go.dev
+        </footer>
+    </body>
+</html>

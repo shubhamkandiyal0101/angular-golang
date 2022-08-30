@@ -1,0 +1,58 @@
+<div class="container">
+    <form style="margin-top:60px;" [formGroup]="signupForm">
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" class="form-control" 
+            formControlName="full_name" 
+            [ngClass]="(isSubmitted && formControls.full_name.errors)?'is-invalid':''">
+
+            <div class="invalid-feedback" *ngIf="isSubmitted && formControls.full_name.errors">
+                <span *ngIf="formControls.full_name.errors.required">Name is Required</span>
+            </div>
+        </div>
+
+      <div class="mb-3">
+        <label>Email address</label>
+        <input type="email" class="form-control"  formControlName="email"
+        [ngClass]="(isSubmitted && formControls.email.errors)?'is-invalid':''">
+        
+        <div class="invalid-feedback" *ngIf="isSubmitted && formControls.email.errors">
+            <span *ngIf="formControls.email.errors.required">E-Mail is Required</span>
+            <span *ngIf="formControls.email.errors.email">Please provide valid E-Mail Address</span>
+        </div>
+
+      </div>
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" formControlName="password"
+        [ngClass]="(isSubmitted && formControls.password.errors)?'is-invalid':''">
+
+        <div class="invalid-feedback" *ngIf="isSubmitted && formControls.password.errors">
+            <span *ngIf="formControls.password.errors.required">Password is Required</span>
+            <span *ngIf="formControls.password.errors.minlength">Please anter atleast 8 characters</span>
+            <span *ngIf="formControls.password.errors.maxlength">25 characters max allowed
+            </span>
+
+        </div>
+
+      </div>
+      <div class="mb-3">
+        <label>Confirm Password</label>
+        <input type="password" class="form-control" formControlName="cpassword"
+        [ngClass]="((isSubmitted && formControls.cpassword.errors) || signupForm?.errors?.passwordMismatch)?'is-invalid':''">
+
+        <div class="invalid-feedback" *ngIf="(isSubmitted && formControls.cpassword.errors) || signupForm?.errors?.passwordMismatch">
+            <span *ngIf="formControls.cpassword.errors.required">Confirm Password is Required</span>
+
+            <span *ngIf="signupForm?.errors?.passwordMismatch">Confirm Password is Required</span>
+
+        </div>
+
+
+
+      </div>
+     
+      <button type="button" class="btn btn-primary w-100" (click)="submitSignupForm()">SUBMIT</button>
+      <a  class="btn btn-info w-100 my-3" [routerLink]="['/login']">LOGIN</a>
+    </form>
+  </div>

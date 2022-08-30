@@ -1,0 +1,14 @@
+<div class="container">
+  <form style="margin-top:60px;" [formGroup]="loginForm">
+    <div class="mb-3">
+      <label>Email address</label>
+      <input type="email" class="form-control" formControlName="email">
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password">
+    </div>
+    <button type="button" class="btn btn-primary w-100" (click)="submitLoginForm()">SUBMIT</button>
+    <a type="button" class="btn btn-info w-100 my-3" [routerLink]="['/signup']">SIGNUP</a>
+  </form>
+</div>
