@@ -1,1 +1,41 @@
-<p>add-category works!</p>
+<!-- TODO: DO CSS WORK -->
+<button class="btn btn-primary" *ngIf="!showForm" (click)="showAddCatForm()">Add Category</button>
+
+<!-- form for add/edit category -->
+<form [formGroup]="categoryForm" class="cat-form" *ngIf="showForm">
+    <div class="form-group">
+      <label>Category Name</label>
+      <input type="text" class="form-control" formControlName="category_name">
+    </div>
+    <div class="form-group">
+      <label>Category Permalink</label>
+      <input type="text" class="form-control" formControlName="cat_permalink">
+    </div>
+    <button type="button" class="btn btn-primary mt-2" (click)="addOrEditCategory()">{{formMode == 'createMode'?'Add Category':'Update'}}</button>
+    <button class="btn btn-danger mt-2 ml-2" (click)="cancelCatForm()">Cancel</button>
+  <!--  TODO: Validation Messages -->
+</form>
+<!-- ends here ~ form for add/edit category -->
+
+
+<!-- Table to Show Data -->
+<table class="table table-striped" *ngIf="!showForm">
+    <thead class="thead-dark">
+        <tr>
+            <th>Category Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let category of categoriesData; let i=index;">
+            <td>{{category.category_name}}</td>
+            <td>
+                <button class="btn btn-info" (click)="onClickEditCat(i);">Edit</button>
+                <button class="btn btn-danger" (click)="deleteCat(i)" style="margin-left:5px;">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+<!-- ends here ~ Table to show Data -->

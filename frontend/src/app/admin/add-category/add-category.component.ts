@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { AdminService } from "src/app/services/admin.service";
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
@@ -13,8 +15,9 @@ export class AddCategoryComponent implements OnInit {
   categoryForm: FormGroup;
   selCategory: any = {};
   categoriesData: any[] = [];
+  showForm: boolean = false;
 
-  constructor(private formBuilder:FormBuilder, private _adminService: AdminService) {
+  constructor(private formBuilder:FormBuilder, private _adminService: AdminService, private toastr: ToastrService) {
 
     this.buildCategoryForm();
     this.getAllCategories();
@@ -49,9 +52,10 @@ export class AddCategoryComponent implements OnInit {
       // in create mode
       this._adminService.addCategory(formData)
       .subscribe((res)=>{
-  
+        this.toastr.success("Success","New Category Added Successfully");
+        window.location.reload();
       }, (err)=>{
-  
+        this.toastr.error("Error","Something went wrong while adding category. Please try again")
       })
       // ends here ~ in create mode
 
@@ -75,14 +79,46 @@ export class AddCategoryComponent implements OnInit {
 
   // get all categories
   getAllCategories() {
-    this._adminService.getAllCategories().subscribe((res)=>{
-      this.categoriesData = [];
+    this._adminService.getAllCategories().subscribe((res:any[])=>{
+      this.categoriesData = res;
     },(err)=>{
 
     })
 
   }
   // ends here ~ get all categories
+
+  // on click edit category
+  onClickEditCat(index) {
+    this.formMode = "editMode";
+    this.showForm = true;
+    this.selCategory = this.categoriesData[index];
+    this.categoryForm.get("category_name").patchValue(this.selCategory.category_name);
+    this.categoryForm.get("cat_permalink").patchValue(this.selCategory.cat_permalink);
+  }
+  // ends here ~ on click edit category
+
+  deleteCat(index) {
+    let selCatId = this.categoriesData[index]._id;
+    console.log(" >> ",this.categoriesData[index])
+    this._adminService.deleteProductCat(selCatId)
+    .subscribe((res)=>{
+      this.toastr.success("Success","Category Deleted Successfully");
+      this.categoriesData.splice(index,1);
+    })
+  }
+
+  cancelCatForm(){
+    this.formMode = "createMode";
+    this.showForm = false;
+  }
+
+  showAddCatForm() {
+    this.formMode = "createMode";
+    this.categoryForm.reset();
+    this.showForm = true;
+  }
+  
 
 
 }

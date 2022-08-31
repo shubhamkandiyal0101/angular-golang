@@ -13,13 +13,18 @@ export class AdminService {
   }
 
   addCategory(payload) {
-    let apiUrl = "";
+    let apiUrl = "/api/add-product-category";
     return this.http.post(apiUrl, payload);
   }
 
   updateCategory(payload) {
-    let apiUrl = "";
+    let apiUrl = "/api/";
     return this.http.post(apiUrl, payload);
+  }
+
+  deleteProductCat(cat_id) {
+    let apiUrl = `/api/delete-product-category/${cat_id}`;
+    return this.http.delete(apiUrl)
   }
   
 }
